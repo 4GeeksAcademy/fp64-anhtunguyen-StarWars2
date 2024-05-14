@@ -1,3 +1,6 @@
+import { peopleDispatcher } from "./peopleDispatcher";
+import { personDispatcher } from "./personDispatcher";
+
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
@@ -12,14 +15,10 @@ const getState = ({ getStore, getActions, setStore }) => {
 		},
 		actions: {
 			getPeople: async() => {
-				const store = getStore()
-				const response = await fetch ('https://www.swapi.tech/api/people', {
-					method:'GET',
-					
-				})
-				const data = await response.json()
-				setStore({ people: data.results });
-				console.log(data)
+				const data = await peopleDispatcher.get();
+				const store = getStore();
+				setStore({ ...store,people: data.results}); 
+				console.log(data);
 			},
 			getCharacter: async(url) => {
 				const store = getStore()
@@ -32,7 +31,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				console.log(data.result)
 			},
 			characterDispatcher: (url)=> {
-				getActions().getCharacter(url)
+				 getActions().getCharacter(url)
 			},
 			
 		}
