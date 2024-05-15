@@ -11,7 +11,9 @@ export const Home = () => {
 
 	useEffect(() => {
 		actions.getPeople()
+		actions.getPlanets()
 	}, [])
+	
 
 
 	return (
@@ -19,12 +21,12 @@ export const Home = () => {
 
 			<Row>
 				<Col>
-					<h2 className="text-white">Characters</h2>
+					<h2 style={{color:'yellow'}}>Characters</h2>
 				</Col>
 			</Row>
 			<Row>
 				<div className='d-flex justify-content-between text-white gap-2'>
-					{store?.people?.map((character, key) => {
+					{store.people.map((character, key) => {
 						return (
 
 							<div>
@@ -35,10 +37,49 @@ export const Home = () => {
 
 									</h3>
 
-
-									<Link to={'/single/' + character.uid}>
+								<div className='d-flex justify-content-between'>
+								<Link to={'/single/' + character.uid}>
 										<button type="button" className="btn btn-dark">Learn more</button>
 									</Link>
+									<button type="button" className="btn btn-dark" onClick={()=> actions.addFavorite(character.name)}>❤️</button>
+								</div>
+									
+								</div>
+							</div>
+
+
+
+						)
+					}
+
+
+					)}
+				</div>
+			</Row>
+			<Row>
+				<Col>
+					<h2 style={{color:'yellow'}}>Planets</h2>
+				</Col>
+			</Row>
+			<Row>
+				<div className='d-flex justify-content-between text-white gap-2'>
+					{store.planets.map((planet, key) => {
+						return (
+
+							<div>
+								<img src={'https://starwars-visualguide.com/assets/img/planets/' + (key + 1) + '.jpg'} style={{ width: '300px' }} />
+								<div className='card-body'>
+									<h3 className='card-title fw-bold' key={planet.name} >
+										{planet.name}
+
+									</h3>
+
+									<div className='d-flex justify-content-between'>
+									<Link to={'/single_planet/' + planet.uid}>
+										<button type="button" className="btn btn-dark">Learn more</button>
+									</Link>
+									<button type="button" className="btn btn-dark" onClick={()=> actions.addFavorite(planet.name)}>❤️</button>
+									</div>
 								</div>
 							</div>
 
@@ -52,6 +93,10 @@ export const Home = () => {
 				</div>
 			</Row>
 			
+			
+
+
+
 			
 
 
